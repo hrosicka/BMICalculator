@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>DialogBMI</class>
+ <widget class="QDialog" name="DialogBMI">
+  <property name="enabled">
+   <bool>true</bool>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>500</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="minimumSize">
+   <size>
+    <width>500</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="maximumSize">
+   <size>
+    <width>500</width>
+    <height>500</height>
+   </size>
+  </property>
+  <property name="windowTitle">
+   <string>Dialog</string>
+  </property>
+  <property name="whatsThis">
+   <string/>
+  </property>
+  <property name="autoFillBackground">
+   <bool>false</bool>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(58, 58, 58);</string>
+  </property>
+  <widget class="QWidget" name="formLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>39</x>
+     <y>120</y>
+     <width>421</width>
+     <height>261</height>
+    </rect>
+   </property>
+   <layout class="QFormLayout" name="formLayout">
+    <property name="formAlignment">
+     <set>Qt::AlignJustify|Qt::AlignVCenter</set>
+    </property>
+    <item row="0" column="0">
+     <widget class="QLabel" name="label_age">
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string>Age</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="edit_age">
+      <property name="toolTip">
+       <string>Insert your age</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0">
+     <widget class="QLabel" name="label_height">
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string>Height</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1">
+     <widget class="QLineEdit" name="edit_height">
+      <property name="toolTip">
+       <string>Insert your height in cm</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QLabel" name="label_weight">
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string>Weight</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QLineEdit" name="edit_weight">
+      <property name="toolTip">
+       <string>Insert your weight in kg</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="0">
+     <widget class="QLabel" name="label_result">
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string>Result</string>
+      </property>
+     </widget>
+    </item>
+    <item row="4" column="1">
+     <widget class="QLineEdit" name="edit_result">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="toolTip">
+       <string>Your BMI</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="Line" name="line">
+      <property name="styleSheet">
+       <string notr="true"/>
+      </property>
+      <property name="lineWidth">
+       <number>0</number>
+      </property>
+      <property name="midLineWidth">
+       <number>5</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QLabel" name="name">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>40</y>
+     <width>500</width>
+     <height>50</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(69, 206, 86);</string>
+   </property>
+   <property name="text">
+    <string>BMI CALCULATOR</string>
+   </property>
+   <property name="alignment">
+    <set>Qt::AlignCenter</set>
+   </property>
+  </widget>
+  <widget class="QWidget" name="horizontalLayoutWidget">
+   <property name="geometry">
+    <rect>
+     <x>39</x>
+     <y>400</y>
+     <width>421</width>
+     <height>52</height>
+    </rect>
+   </property>
+   <layout class="QHBoxLayout" name="horizontalLayout">
+    <item>
+     <widget class="QPushButton" name="button_calculate">
+      <property name="baseSize">
+       <size>
+        <width>0</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string>Calculate BMI</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+background-color: rgb(69, 206, 86);
+color: rgb(58, 58, 58);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Calculate</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="button_clear">
+      <property name="toolTip">
+       <string>Clear input</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(58, 58, 58);
+background-color: rgb(69, 206, 86);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Clear</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="button_close">
+      <property name="toolTip">
+       <string>Clear input</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(58, 58, 58);
+background-color: rgb(69, 206, 86);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Close</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
