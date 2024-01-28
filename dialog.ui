@@ -16,7 +16,7 @@
   <property name="minimumSize">
    <size>
     <width>500</width>
-    <height>500</height>
+    <height>600</height>
    </size>
   </property>
   <property name="maximumSize">
@@ -41,9 +41,9 @@
    <property name="geometry">
     <rect>
      <x>39</x>
-     <y>120</y>
+     <y>90</y>
      <width>421</width>
-     <height>368</height>
+     <height>406</height>
     </rect>
    </property>
    <layout class="QFormLayout" name="formLayout">
@@ -58,20 +58,6 @@ color: rgb(209, 209, 209);</string>
       </property>
       <property name="text">
        <string>Age</string>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <widget class="QLineEdit" name="edit_age">
-      <property name="toolTip">
-       <string>Insert your age</string>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(209, 209, 209);</string>
-      </property>
-      <property name="alignment">
-       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>
@@ -125,6 +111,31 @@ color: rgb(209, 209, 209);</string>
       </property>
       <property name="alignment">
        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="0">
+     <widget class="QLabel" name="label_gender">
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string>Gender</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="1">
+     <widget class="QRadioButton" name="radio_male">
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(209, 209, 209);</string>
+      </property>
+      <property name="text">
+       <string>Male</string>
+      </property>
+      <property name="checked">
+       <bool>true</bool>
       </property>
      </widget>
     </item>
@@ -203,28 +214,17 @@ border-radius: 10px;</string>
       </property>
      </widget>
     </item>
-    <item row="3" column="0">
-     <widget class="QLabel" name="label_gender">
+    <item row="0" column="1">
+     <widget class="QLineEdit" name="edit_age">
+      <property name="toolTip">
+       <string>Insert your age</string>
+      </property>
       <property name="styleSheet">
-       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
 color: rgb(209, 209, 209);</string>
       </property>
-      <property name="text">
-       <string>Gender</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QRadioButton" name="radio_male">
-      <property name="styleSheet">
-       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
-color: rgb(209, 209, 209);</string>
-      </property>
-      <property name="text">
-       <string>Male</string>
-      </property>
-      <property name="checked">
-       <bool>true</bool>
+      <property name="alignment">
+       <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
       </property>
      </widget>
     </item>

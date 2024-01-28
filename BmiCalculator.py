@@ -1,5 +1,7 @@
 import sys
 
+from PyQt5 import QtWidgets
+
 from PyQt5.QtWidgets import (
     QApplication,
     QDialog,
@@ -24,8 +26,6 @@ class Formular(QDialog):
     def __init__(self):
         super().__init__()
         loadUi("dialog.ui", self)
-        self.setWindowTitle('BMI Calculator')
-        self.setWindowIcon(QIcon('Pig.png'))
 
         validator_possitive = QRegExpValidator(QtCore.QRegExp(r'([1-9][0-9]{1,2})|([1-9][0-9]{1,2}[.])|([1-9][0-9]{1,2}[.][0-9]{1,3})'))
 
@@ -45,6 +45,13 @@ class Formular(QDialog):
 
         self.edit_weight.textChanged.connect(self.check_state_weight)
         self.edit_weight.textChanged.emit(self.edit_weight.text())
+
+        self.button_more.clicked.connect(lambda: self.more_info())
+
+    def more_info(self):
+        info_BMI =  InfoFormular()
+        widget.addWidget(info_BMI)
+        widget.setCurrentIndex(widget.currentIndex()+1)
 
     def clear_inputs(self):
         self.edit_age.clear()
@@ -101,7 +108,20 @@ class Formular(QDialog):
             color = '#f6989d' # red
         sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt}' % color)
 
+
+class InfoFormular(QDialog):
+
+    def __init__(self):
+        super().__init__()
+        loadUi("info_dialog.ui", self)
+
+
+
 app = QApplication(sys.argv)
-w = Formular()
-w.show()
+mainwindow = Formular()
+widget = QtWidgets.QStackedWidget()
+widget.setWindowTitle('BMI Calculator')
+widget.setWindowIcon(QIcon('Pig.png'))
+widget.addWidget(mainwindow)
+widget.show()
 app.exec()
