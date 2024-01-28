@@ -8,6 +8,8 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtGui import (
     QPixmap, 
     QIcon,
+    QRegExpValidator,
+    QValidator,
 )
 
 from PyQt5 import QtCore
@@ -24,9 +26,25 @@ class Formular(QDialog):
         loadUi("dialog.ui", self)
         self.setWindowTitle('BMI Calculator')
         self.setWindowIcon(QIcon('Pig.png'))
+
+        validator_possitive = QRegExpValidator(QtCore.QRegExp(r'([1-9][0-9]{1,2})|([1-9][0-9]{1,2}[.])|([1-9][0-9]{1,2}[.][0-9]{1,3})'))
+
+        self.edit_age.setValidator(validator_possitive)
+        self.edit_height.setValidator(validator_possitive)
+        self.edit_weight.setValidator(validator_possitive)
+
         self.button_clear.clicked.connect(lambda: self.clear_inputs())
         self.button_close.clicked.connect(self.close)
         self.button_calculate.clicked.connect(lambda: self.calculate_bmi())
+
+        self.edit_age.textChanged.connect(self.check_state_age)
+        self.edit_age.textChanged.emit(self.edit_age.text())
+
+        self.edit_height.textChanged.connect(self.check_state_height)
+        self.edit_height.textChanged.emit(self.edit_height.text())
+
+        self.edit_weight.textChanged.connect(self.check_state_weight)
+        self.edit_weight.textChanged.emit(self.edit_weight.text())
 
     def clear_inputs(self):
         self.edit_age.clear()
@@ -40,7 +58,49 @@ class Formular(QDialog):
         person_result = BMI.indexBMI(person_weight, person_height/100)
         self.edit_result.setText(str(round(person_result,3)))
     
-   
+    def check_state_age(self, *args, **kwargs):
+        sender = self.sender()
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if self.edit_age.text() == "0" or self.edit_age.text() == "":
+            color = '#f6989d' # red
+        elif state == QValidator.Acceptable:
+            color = '#c4df9b' # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a' # yellow
+        else:
+            color = '#f6989d' # red
+        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt}' % color)
+
+
+    def check_state_height(self, *args, **kwargs):
+        sender = self.sender()
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if self.edit_height.text() == "0" or self.edit_height.text() == "":
+            color = '#f6989d' # red
+        elif state == QValidator.Acceptable:
+            color = '#c4df9b' # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a' # yellow
+        else:
+            color = '#f6989d' # red
+        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt}' % color)
+
+    def check_state_weight(self, *args, **kwargs):
+        sender = self.sender()
+        validator = sender.validator()
+        state = validator.validate(sender.text(), 0)[0]
+        if self.edit_weight.text() == "0" or self.edit_weight.text() == "":
+            color = '#f6989d' # red
+        elif state == QValidator.Acceptable:
+            color = '#c4df9b' # green
+        elif state == QValidator.Intermediate:
+            color = '#fff79a' # yellow
+        else:
+            color = '#f6989d' # red
+        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt}' % color)
+
 app = QApplication(sys.argv)
 w = Formular()
 w.show()
