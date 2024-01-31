@@ -68,9 +68,10 @@ class Formular(QDialog):
             self.radio_male.setChecked(True)
 
     def more_info(self):
-        info_BMI =  InfoFormular()
-        widget.addWidget(info_BMI)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        if (Formular.user_person_result > 0.0):
+            info_BMI =  InfoFormular()
+            widget.addWidget(info_BMI)
+            widget.setCurrentIndex(widget.currentIndex()+1)
 
     def clear_inputs(self):
         self.edit_age.clear()
