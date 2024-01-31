@@ -23,6 +23,12 @@ import BMI
 
 class Formular(QDialog):
 
+    user_person_age = 0.0
+    user_person_height = 0.0
+    user_person_weight = 0.0
+    user_person_result = 0.0
+    user_person_gender = "Male"
+
     def __init__(self):
         super().__init__()
         loadUi("dialog.ui", self)
@@ -48,6 +54,19 @@ class Formular(QDialog):
 
         self.button_more.clicked.connect(lambda: self.more_info())
 
+        self.fill_data()
+
+
+    def fill_data(self):
+        self.edit_age.setText(str(Formular.user_person_age))
+        self.edit_height.setText(str(Formular.user_person_height))
+        self.edit_weight.setText(str(Formular.user_person_weight))
+        self.edit_result.setText(str(Formular.user_person_result))
+        if (Formular.user_person_gender == "Male"):
+            self.radio_male.setChecked(True)
+        if (Formular.user_person_gender == "Female"):
+            self.radio_male.setChecked(True)
+
     def more_info(self):
         info_BMI =  InfoFormular()
         widget.addWidget(info_BMI)
@@ -60,10 +79,10 @@ class Formular(QDialog):
         self.edit_result.clear()
 
     def calculate_bmi(self):
-        person_height = float(self.edit_height.text())
-        person_weight = float(self.edit_weight.text())
-        person_result = BMI.indexBMI(person_weight, person_height/100)
-        self.edit_result.setText(str(round(person_result,3)))
+        Formular.user_person_height = float(self.edit_height.text())
+        Formular.user_person_weight = float(self.edit_weight.text())
+        Formular.user_person_result = round(BMI.indexBMI(Formular.user_person_weight, Formular.user_person_height/100),3)
+        self.edit_result.setText(str(Formular.user_person_result))
     
     def check_state_age(self, *args, **kwargs):
         sender = self.sender()
@@ -114,8 +133,23 @@ class InfoFormular(QDialog):
     def __init__(self):
         super().__init__()
         loadUi("info_dialog.ui", self)
+        self.button_back.clicked.connect(lambda: self.go_main())
+        output0 = "Information about you:"
+        output1 = "Your height is " + str(Formular.user_person_height)
+        output2 = "Your weight is " + str(Formular.user_person_weight)
+        output3 = "Your BMI is " + str(Formular.user_person_result)
 
+        self.information = output0 + "\n" + output1 + "\n" + output2 + "\n" + output3
+        self.show_info()
 
+    def go_main(self):
+        mainwindow = Formular()
+        widget.addWidget(mainwindow)
+        widget.setCurrentIndex(widget.currentIndex()+1)
+
+    def show_info(self):
+        self.text_show.setText(self.information)
+        
 
 app = QApplication(sys.argv)
 mainwindow = Formular()

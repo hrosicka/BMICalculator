@@ -68,7 +68,7 @@ color: rgb(69, 206, 86);</string>
    </property>
    <layout class="QHBoxLayout" name="horizontalLayout">
     <item>
-     <widget class="QPushButton" name="button_clear">
+     <widget class="QPushButton" name="button_back">
       <property name="toolTip">
        <string>Clear input</string>
       </property>
@@ -80,6 +80,22 @@ border-radius: 10px;</string>
       </property>
       <property name="text">
        <string>Back</string>
+      </property>
+     </widget>
+    </item>
+    <item>
+     <widget class="QPushButton" name="button_clear">
+      <property name="toolTip">
+       <string>Clear input</string>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
+color: rgb(58, 58, 58);
+background-color: rgb(69, 206, 86);
+border-radius: 10px;</string>
+      </property>
+      <property name="text">
+       <string>Clear</string>
       </property>
      </widget>
     </item>
@@ -101,7 +117,7 @@ border-radius: 10px;</string>
     </item>
    </layout>
   </widget>
-  <widget class="QTextEdit" name="textEdit">
+  <widget class="QTextEdit" name="text_show">
    <property name="geometry">
     <rect>
      <x>40</x>
@@ -111,7 +127,7 @@ border-radius: 10px;</string>
     </rect>
    </property>
    <property name="styleSheet">
-    <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+    <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
 color: rgb(209, 209, 209);</string>
    </property>
   </widget>
