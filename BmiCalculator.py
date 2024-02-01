@@ -5,10 +5,11 @@ from PyQt5 import QtWidgets
 from PyQt5.QtWidgets import (
     QApplication,
     QDialog,
+    QMessageBox,
 )
 
 from PyQt5.QtGui import (
-    QPixmap, 
+    QPixmap,
     QIcon,
     QRegExpValidator,
     QValidator,
@@ -23,10 +24,10 @@ import BMI
 
 class Formular(QDialog):
 
-    user_person_age = 0.0
-    user_person_height = 0.0
-    user_person_weight = 0.0
-    user_person_result = 0.0
+    user_person_age = ""
+    user_person_height = ""
+    user_person_weight = ""
+    user_person_result = ""
     user_person_gender = "Male"
 
     def __init__(self):
@@ -80,10 +81,24 @@ class Formular(QDialog):
         self.edit_result.clear()
 
     def calculate_bmi(self):
-        Formular.user_person_height = float(self.edit_height.text())
-        Formular.user_person_weight = float(self.edit_weight.text())
-        Formular.user_person_result = round(BMI.indexBMI(Formular.user_person_weight, Formular.user_person_height/100),3)
-        self.edit_result.setText(str(Formular.user_person_result))
+
+        if self.edit_age.text() in [""]:
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Age is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox.exec_()
+
+        elif self.edit_height.text() in [""]:
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", "Height is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox.exec_()
+
+        elif self.edit_weight.text() in [""]:
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", "Weight is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox.exec_()
+
+        else:
+            Formular.user_person_height = float(self.edit_height.text())
+            Formular.user_person_weight = float(self.edit_weight.text())
+            Formular.user_person_result = round(BMI.indexBMI(Formular.user_person_weight, Formular.user_person_height/100),3)
+            self.edit_result.setText(str(Formular.user_person_result))
     
     def check_state_age(self, *args, **kwargs):
         sender = self.sender()
