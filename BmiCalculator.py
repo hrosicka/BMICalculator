@@ -1,5 +1,7 @@
 import sys
 
+from pathlib import Path
+
 from PyQt5 import QtWidgets
 
 from PyQt5.QtWidgets import (
@@ -87,11 +89,11 @@ class Formular(QDialog):
             messagebox.exec_()
 
         elif self.edit_height.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", "Height is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Height is missing!", buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
         elif self.edit_weight.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", "Weight is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Weight is missing!", buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
         else:
@@ -174,4 +176,5 @@ widget.setWindowTitle('BMI Calculator')
 widget.setWindowIcon(QIcon('Pig.png'))
 widget.addWidget(mainwindow)
 widget.show()
+app.setStyleSheet(Path('bmi.qss').read_text())
 app.exec()
