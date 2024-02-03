@@ -47,6 +47,7 @@ class Formular(QDialog):
         self.button_calculate.clicked.connect(lambda: self.calculate_bmi())
 
         self.edit_age.textChanged.connect(self.check_state_age)
+        self.edit_age.textChanged.connect(self.clear_results)
         self.edit_age.textChanged.emit(self.edit_age.text())
 
         self.edit_height.textChanged.connect(self.check_state_height)
@@ -80,6 +81,9 @@ class Formular(QDialog):
         self.edit_age.clear()
         self.edit_height.clear()
         self.edit_weight.clear()
+        self.edit_result.clear()
+
+    def clear_results(self):
         self.edit_result.clear()
 
     def calculate_bmi(self):
