@@ -71,7 +71,7 @@ class Formular(QDialog):
             self.radio_male.setChecked(True)
 
     def more_info(self):
-        if (Formular.user_person_result > 0.0):
+        if (Formular.user_person_result != ""):
             info_BMI =  InfoFormular()
             widget.addWidget(info_BMI)
             widget.setCurrentIndex(widget.currentIndex()+1)
