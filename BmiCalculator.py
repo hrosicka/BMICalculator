@@ -68,7 +68,7 @@ class Formular(QDialog):
         if (Formular.user_person_gender == "Male"):
             self.radio_male.setChecked(True)
         if (Formular.user_person_gender == "Female"):
-            self.radio_male.setChecked(True)
+            self.radio_female.setChecked(True)
 
     def more_info(self):
         if (Formular.user_person_result != ""):
@@ -97,8 +97,13 @@ class Formular(QDialog):
             messagebox.exec_()
 
         else:
+            Formular.user_person_age = float(self.edit_age.text())
             Formular.user_person_height = float(self.edit_height.text())
             Formular.user_person_weight = float(self.edit_weight.text())
+            if self.radio_male.isChecked() == True:
+                Formular.user_person_gender = "Male"
+            if self.radio_female.isChecked() == True:
+                Formular.user_person_gender = "Female"
             Formular.user_person_result = round(BMI.indexBMI(Formular.user_person_weight, Formular.user_person_height/100),3)
             self.edit_result.setText(str(Formular.user_person_result))
     
