@@ -51,9 +51,11 @@ class Formular(QDialog):
         self.edit_age.textChanged.emit(self.edit_age.text())
 
         self.edit_height.textChanged.connect(self.check_state_height)
+        self.edit_height.textChanged.connect(self.clear_results)
         self.edit_height.textChanged.emit(self.edit_height.text())
 
         self.edit_weight.textChanged.connect(self.check_state_weight)
+        self.edit_weight.textChanged.connect(self.clear_results)
         self.edit_weight.textChanged.emit(self.edit_weight.text())
 
         self.button_more.clicked.connect(lambda: self.more_info())
