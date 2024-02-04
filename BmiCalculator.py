@@ -58,6 +58,9 @@ class Formular(QDialog):
         self.edit_weight.textChanged.connect(self.clear_results)
         self.edit_weight.textChanged.emit(self.edit_weight.text())
 
+        self.radio_male.toggled.connect(self.clear_results)
+        self.radio_female.toggled.connect(self.clear_results)
+
         self.button_more.clicked.connect(lambda: self.more_info())
 
         self.fill_data()
