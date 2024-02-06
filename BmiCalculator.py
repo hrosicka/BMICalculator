@@ -166,6 +166,8 @@ class InfoFormular(QDialog):
         super().__init__()
         loadUi("info_dialog.ui", self)
         self.button_back.clicked.connect(lambda: self.go_main())
+        self.button_clear.clicked.connect(lambda: self.clear_data())
+
         output0 = "Information about you:"
         output1 = "Your height is " + str(Formular.user_person_height)
         output2 = "Your weight is " + str(Formular.user_person_weight)
@@ -182,6 +184,12 @@ class InfoFormular(QDialog):
     def show_info(self):
         self.text_show.setText(self.information)
         
+    def clear_data(self):
+        Formular.user_person_age = ""
+        Formular.user_person_height = ""
+        Formular.user_person_weight = ""
+        Formular.user_person_result = ""
+        self.text_show.clear()
 
 app = QApplication(sys.argv)
 mainwindow = Formular()

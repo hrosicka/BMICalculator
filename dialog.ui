@@ -78,7 +78,7 @@ color: rgb(209, 209, 209);</string>
        <string>Insert your height in cm</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+       <string notr="true">font: 16pt;
 color: rgb(209, 209, 209);</string>
       </property>
       <property name="alignment">
@@ -186,7 +186,7 @@ color: rgb(209, 209, 209);</string>
        <string>Your BMI</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+       <string notr="true">font: 16pt;
 color: rgb(209, 209, 209);</string>
       </property>
       <property name="text">
@@ -220,7 +220,7 @@ border-radius: 10px;</string>
        <string>Insert your age</string>
       </property>
       <property name="styleSheet">
-       <string notr="true">font: 16pt &quot;MS Shell Dlg 2&quot;;
+       <string notr="true">font: 16pt;
 color: rgb(209, 209, 209);</string>
       </property>
       <property name="alignment">
@@ -276,7 +276,14 @@ color: rgb(69, 206, 86);</string>
 selection-background-color: rgb(196, 223, 155);
 background-color: rgb(69, 206, 86);
 color: rgb(58, 58, 58);
-border-radius: 10px;</string>
+border-radius: 10px;
+QToolTip { 
+    background-color: black; 
+    color: white; 
+    border: black solid 1px;
+    font: 12pt &quot;MS Shell Dlg 2&quot;;
+}
+</string>
       </property>
       <property name="text">
        <string>Calculate</string>
