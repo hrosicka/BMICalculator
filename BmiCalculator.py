@@ -173,11 +173,12 @@ class InfoFormular(QDialog):
         self.button_clear.clicked.connect(lambda: self.clear_data())
 
         output0 = "Information about you:"
-        output1 = "Your height is " + str(Formular.user_person_height)
-        output2 = "Your weight is " + str(Formular.user_person_weight)
-        output3 = "Your BMI is " + str(Formular.user_person_result)
+        output1 = "You are " + str(Formular.user_person_age) + " years old."
+        output2 = "Your height is " + str(Formular.user_person_height) + " cm."
+        output3 = "Your weight is " + str(Formular.user_person_weight) + " kg."
+        output4 = "Your BMI is " + str(Formular.user_person_result)
 
-        self.information = output0 + "\n" + output1 + "\n" + output2 + "\n" + output3
+        self.information = output0 + "\n" + output1 + "\n" + output2 + "\n" + output3 + "\n" + output4
         self.show_info()
 
     def go_main(self):

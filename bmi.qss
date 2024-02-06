@@ -13,5 +13,5 @@ QToolTip {
     background-color: black; 
     color: white; 
     border: black solid 1px;
-    font: 12pt "MS Shell Dlg 2";
+    font: 12pt;
 }
