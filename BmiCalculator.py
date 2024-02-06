@@ -87,6 +87,10 @@ class Formular(QDialog):
         self.edit_height.clear()
         self.edit_weight.clear()
         self.edit_result.clear()
+        Formular.user_person_age = ""
+        Formular.user_person_height = ""
+        Formular.user_person_weight = ""
+        Formular.user_person_result = ""
 
     def clear_results(self):
         self.edit_result.clear()
