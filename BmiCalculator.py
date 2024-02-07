@@ -61,9 +61,15 @@ class Formular(QDialog):
         self.radio_male.toggled.connect(self.clear_results)
         self.radio_female.toggled.connect(self.clear_results)
 
+        self.edit_result.setStyleSheet('QLineEdit { color: rgb(209, 209, 209); font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+    
+
+                                
+                                            
         self.button_more.clicked.connect(lambda: self.more_info())
 
         self.fill_data()
+
 
 
     def fill_data(self):
@@ -132,8 +138,7 @@ class Formular(QDialog):
             color = '#fff79a' # yellow
         else:
             color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt}' % color)
-
+        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
 
     def check_state_height(self, *args, **kwargs):
         sender = self.sender()
@@ -147,7 +152,7 @@ class Formular(QDialog):
             color = '#fff79a' # yellow
         else:
             color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt}' % color)
+        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
 
     def check_state_weight(self, *args, **kwargs):
         sender = self.sender()
@@ -161,7 +166,7 @@ class Formular(QDialog):
             color = '#fff79a' # yellow
         else:
             color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt}' % color)
+        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
 
 
 class InfoFormular(QDialog):
