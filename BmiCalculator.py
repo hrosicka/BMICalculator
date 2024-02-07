@@ -62,7 +62,8 @@ class Formular(QDialog):
         self.radio_female.toggled.connect(self.clear_results)
 
         self.edit_result.setStyleSheet('QLineEdit { color: rgb(209, 209, 209); font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-    
+        
+        self.button_more.setStyleSheet('QPushButton { color: rgb(69, 206, 86); border-radius: 10px} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
 
                                 
                                             
