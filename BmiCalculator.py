@@ -184,10 +184,14 @@ class InfoFormular(QDialog):
         output1 = "You are " + str(Formular.user_person_age) + " years old."
         output2 = "Your height is " + str(Formular.user_person_height) + " cm."
         output3 = "Your weight is " + str(Formular.user_person_weight) + " kg."
-        output4 = "Your BMI is " + str(Formular.user_person_result)
+        output4 = "Your BMI is " + str(Formular.user_person_result) + "."
 
         self.information = output0 + "\n" + output1 + "\n" + output2 + "\n" + output3 + "\n" + output4
         self.show_info()
+
+        self.button_back.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+        self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+        self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
 
     def go_main(self):
         mainwindow = Formular()

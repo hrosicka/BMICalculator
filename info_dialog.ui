@@ -70,7 +70,7 @@ color: rgb(69, 206, 86);</string>
     <item>
      <widget class="QPushButton" name="button_back">
       <property name="toolTip">
-       <string>Clear input</string>
+       <string>Go back to the main window</string>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 12pt &quot;MS Shell Dlg 2&quot;;
