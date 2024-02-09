@@ -14,36 +14,36 @@ def indexBMI(hmotnost, vyska):
     else:
         raise ValueError("Hmotnost musí být kladné číslo.")
 
-def vypisHlasku(bmi):
+def return_results(bmi):
     """
     Klasifikace tělesné hmotnosti
 
     bmi - body mass index
     """
 
-    if bmi < 20:
-        return "Podváha"
+    if bmi < 18.5:
+        return "Underweight."
     
-    elif bmi >= 20 and bmi < 25:
-        return "Optimální váha"
+    elif bmi >= 18.5 and bmi < 25:
+        return "Normal."
     
     elif bmi >= 25 and bmi < 30:
-        return "Nadváha"
+        return "Overweight."
     
     elif bmi >= 30 and bmi < 35:
-        return "Obezita 1.stupeň"
+        return "Obese Class I."
     
     elif bmi >= 35 and bmi < 40:
-        return "Obezita 2. stupeň"
+        return "Obese Class II."
     
     elif bmi >= 40:
-        return "Morbidní obezita"
+        return "Obese Class III."
     
 def main():
 
     bmi = round(indexBMI(52,1.57),2)
-    print("BMI je", bmi)
-    print(vypisHlasku(bmi))
+    print("BMI is", bmi)
+    print(return_results(bmi))
 
 if __name__ == "__main__":
     main()
