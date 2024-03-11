@@ -2,7 +2,7 @@
 Calculation of Body Mass Index... Still in progress...
 
 ## Main window
-Main window...
+Main window for inputs and basic results.
 
 ![](https://github.com/hrosicka/PyQtBMICalculator/blob/master/doc/BmiCalculator.png)
 
@@ -22,4 +22,10 @@ Height must be filled
 Weight must be filled
 
 ![](https://github.com/hrosicka/PyQtBMICalculator/blob/master/doc/MissingWeight.png)
+
+### Basic results
+
+![](https://github.com/hrosicka/PyQtBMICalculator/blob/master/doc/InputsOk.png)
+
+
 
