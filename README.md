@@ -28,4 +28,10 @@ Weight must be filled
 ![](https://github.com/hrosicka/PyQtBMICalculator/blob/master/doc/InputsOk.png)
 
 
+## Detailed results window
+
+![](https://github.com/hrosicka/PyQtBMICalculator/blob/master/doc/DetailedResults.png)
+
+
+
 
