@@ -23,17 +23,13 @@ from PyQt5.uic import loadUi
 
 # methods for calculation BMI
 import BMI
+import user
 
 
 class Formular(QDialog):
 
-    # static variables for information about person
-    user_person_age = ""
-    user_person_height = ""
-    user_person_weight = ""
-    user_person_result = ""
-    user_person_gender = "Male"
-    user_person_result_classification = ""
+    # Create a user object to store information
+    user = user.User()  
 
     # init main dialog
     def __init__(self):
@@ -91,19 +87,19 @@ class Formular(QDialog):
 
     # fill data form static variables
     def fill_data(self):
-        self.edit_age.setText(str(Formular.user_person_age))
-        self.edit_height.setText(str(Formular.user_person_height))
-        self.edit_weight.setText(str(Formular.user_person_weight))
-        self.edit_result.setText(str(Formular.user_person_result))
-        if (Formular.user_person_gender == "Male"):
+        self.edit_age.setText(str(Formular.user.age))
+        self.edit_height.setText(str(Formular.user.height_cm))
+        self.edit_weight.setText(str(Formular.user.weight_kg))
+        self.edit_result.setText(str(Formular.user.bmi))
+        if (self.user.gender == "Male"):
             self.radio_male.setChecked(True)
-        if (Formular.user_person_gender == "Female"):
+        if (self.user.gender == "Female"):
             self.radio_female.setChecked(True)
 
     # more info works only if the results exists
     def more_info(self):
         # works only if the result exists
-        if (Formular.user_person_result != ""):
+        if (Formular.user.bmi != ""):
             info_BMI =  InfoFormular()
             widget.addWidget(info_BMI)
             widget.setCurrentIndex(widget.currentIndex()+1)
@@ -114,11 +110,11 @@ class Formular(QDialog):
         self.edit_height.clear()
         self.edit_weight.clear()
         self.edit_result.clear()
-        Formular.user_person_age = ""
-        Formular.user_person_height = ""
-        Formular.user_person_weight = ""
-        Formular.user_person_result = ""
-        Formular.user_person_result_classification = ""
+        Formular.user.age = ""
+        Formular.user.height_cm = ""
+        Formular.user.weight_kg = ""
+        Formular.user.bmi = ""
+        Formular.user.classification = ""
 
     # clear results
     def clear_results(self):
@@ -140,16 +136,16 @@ class Formular(QDialog):
             messagebox.exec_()
 
         else:
-            Formular.user_person_age = float(self.edit_age.text())
-            Formular.user_person_height = float(self.edit_height.text())
-            Formular.user_person_weight = float(self.edit_weight.text())
+            Formular.user.age = float(self.edit_age.text())
+            Formular.user.height_cm = float(self.edit_height.text())
+            Formular.user.weight_kg = float(self.edit_weight.text())
             if self.radio_male.isChecked() == True:
-                Formular.user_person_gender = "Male"
+                Formular.user.gender = "Male"
             if self.radio_female.isChecked() == True:
-                Formular.user_person_gender = "Female"
-            Formular.user_person_result = round(BMI.indexBMI(Formular.user_person_weight, Formular.user_person_height/100),3)
-            self.edit_result.setText(str(Formular.user_person_result))
-            Formular.user_person_result_classification = BMI.return_results(float(Formular.user_person_result))
+                Formular.user.gender = "Female"
+            Formular.user.bmi = round(BMI.indexBMI(Formular.user.weight_kg, Formular.user.height_cm/100),3)
+            self.edit_result.setText(str(Formular.user.bmi))
+            Formular.user.classification = BMI.return_results(float(Formular.user.bmi))
     
     def check_state(self, field_name):
 
@@ -189,11 +185,11 @@ class InfoFormular(QDialog):
         self.button_close.clicked.connect(app.closeAllWindows)
 
         # formated string for displaying results in second window - detailed results
-        self.information = self.format_user_info(Formular.user_person_age, 
-                                    Formular.user_person_height, 
-                                    Formular.user_person_weight, 
-                                    Formular.user_person_result, 
-                                    Formular.user_person_result_classification)
+        self.information = self.format_user_info(Formular.user.age, 
+                                    Formular.user.height_cm, 
+                                    Formular.user.weight_kg, 
+                                    Formular.user.bmi, 
+                                    Formular.user.classification)
         self.show_info()
 
         # button stylesheet
@@ -203,6 +199,11 @@ class InfoFormular(QDialog):
 
     # formated string for displaying results in second window - detailed results
     def format_user_info(self, age, height, weight, bmi, classification):
+        if isinstance(age, str):
+            age = float(age)
+        height = float(height)
+        weight = float(weight)
+        bmi = float(bmi)
         return f"""Information about you:
 You are {age} years old.
 Your height is {height} cm.
@@ -221,10 +222,11 @@ Your classification is {classification}
         self.text_show.setText(self.information)
         
     def clear_data(self):
-        Formular.user_person_age = ""
-        Formular.user_person_height = ""
-        Formular.user_person_weight = ""
-        Formular.user_person_result = ""
+        Formular.user.age = ""
+        Formular.user.height_cm = ""
+        Formular.user.weight_kg = ""
+        Formular.user.bmi = ""
+        Formular.user.classification = ""
         self.text_show.clear()
 
 app = QApplication(sys.argv)
