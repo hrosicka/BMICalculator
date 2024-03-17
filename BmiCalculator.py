@@ -57,17 +57,17 @@ class Formular(QDialog):
         self.button_more.clicked.connect(lambda: self.more_info())
 
         # age input
-        self.edit_age.textChanged.connect(self.check_state_age)
+        self.edit_age.textChanged.connect(lambda: self.check_state("age"))
         self.edit_age.textChanged.connect(self.clear_results)
         self.edit_age.textChanged.emit(self.edit_age.text())
 
         # height input in cm
-        self.edit_height.textChanged.connect(self.check_state_height)
+        self.edit_height.textChanged.connect(lambda: self.check_state("height"))
         self.edit_height.textChanged.connect(self.clear_results)
         self.edit_height.textChanged.emit(self.edit_height.text())
 
         # weight input in cm
-        self.edit_weight.textChanged.connect(self.check_state_weight)
+        self.edit_weight.textChanged.connect(lambda: self.check_state("weight"))
         self.edit_weight.textChanged.connect(self.clear_results)
         self.edit_weight.textChanged.emit(self.edit_weight.text())
 
@@ -151,39 +151,20 @@ class Formular(QDialog):
             self.edit_result.setText(str(Formular.user_person_result))
             Formular.user_person_result_classification = BMI.return_results(float(Formular.user_person_result))
     
-    def check_state_age(self, *args, **kwargs):
-        sender = self.sender()
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if self.edit_age.text() == "0" or self.edit_age.text() == "":
-            color = '#f6989d' # red
-        elif state == QValidator.Acceptable:
-            color = '#c4df9b' # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a' # yellow
-        else:
-            color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
+    def check_state(self, field_name):
 
-    def check_state_height(self, *args, **kwargs):
-        sender = self.sender()
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if self.edit_height.text() == "0" or self.edit_height.text() == "":
-            color = '#f6989d' # red
-        elif state == QValidator.Acceptable:
-            color = '#c4df9b' # green
-        elif state == QValidator.Intermediate:
-            color = '#fff79a' # yellow
+        if field_name == "age":
+            edit_field = self.edit_age
+        elif field_name == "height":
+            edit_field = self.edit_height
+        elif field_name == "weight":
+            edit_field = self.edit_weight
         else:
-            color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
+            return  # Chyba: neznámý field_name
 
-    def check_state_weight(self, *args, **kwargs):
-        sender = self.sender()
-        validator = sender.validator()
-        state = validator.validate(sender.text(), 0)[0]
-        if self.edit_weight.text() == "0" or self.edit_weight.text() == "":
+        validator = edit_field.validator()
+        state = validator.validate(edit_field.text(), 0)[0]
+        if edit_field.text() == "0" or edit_field.text() == "":
             color = '#f6989d' # red
         elif state == QValidator.Acceptable:
             color = '#c4df9b' # green
@@ -191,7 +172,7 @@ class Formular(QDialog):
             color = '#fff79a' # yellow
         else:
             color = '#f6989d' # red
-        sender.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
+        edit_field.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
 
 
 # second dialog for informatin display
