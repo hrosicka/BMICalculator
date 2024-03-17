@@ -21,23 +21,19 @@ def return_results(bmi):
     bmi - body mass index
     """
 
-    if bmi < 18.5:
-        return "Underweight."
-    
-    elif bmi >= 18.5 and bmi < 25:
-        return "Normal."
-    
-    elif bmi >= 25 and bmi < 30:
-        return "Overweight."
-    
-    elif bmi >= 30 and bmi < 35:
-        return "Obese Class I."
-    
-    elif bmi >= 35 and bmi < 40:
-        return "Obese Class II."
-    
-    elif bmi >= 40:
-        return "Obese Class III."
+    # dictionary is used for classification of BMI
+    classification = {
+    "Underweight.": (bmi < 18.5),
+    "Normal.": (18.5 <= bmi < 25),
+    "Overweight.": (25 <= bmi < 30),
+    "Obese Class I.": (30 <= bmi < 35),
+    "Obese Class II.": (35 <= bmi < 40),
+    "Obese Class III.": (bmi >= 40),
+    }
+
+    for k, v in classification.items():
+        if v:
+            return k
     
 def main():
 
