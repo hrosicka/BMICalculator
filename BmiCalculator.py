@@ -188,21 +188,28 @@ class InfoFormular(QDialog):
         self.button_clear.clicked.connect(lambda: self.clear_data())
         self.button_close.clicked.connect(app.closeAllWindows)
 
-        # displaying results
-        output0 = "Information about you:"
-        output1 = "You are " + str(Formular.user_person_age) + " years old."
-        output2 = "Your height is " + str(Formular.user_person_height) + " cm."
-        output3 = "Your weight is " + str(Formular.user_person_weight) + " kg."
-        output4 = "Your BMI is " + str(Formular.user_person_result) + "."
-        output5 = "Your classification is " + str(Formular.user_person_result_classification)
-
-        self.information = output0 + "\n" + output1 + "\n" + output2 + "\n" + output3 + "\n" + output4 + "\n" + output5
+        # formated string for displaying results in second window - detailed results
+        self.information = self.format_user_info(Formular.user_person_age, 
+                                    Formular.user_person_height, 
+                                    Formular.user_person_weight, 
+                                    Formular.user_person_result, 
+                                    Formular.user_person_result_classification)
         self.show_info()
 
         # button stylesheet
         self.button_back.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
         self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
         self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+
+    # formated string for displaying results in second window - detailed results
+    def format_user_info(self, age, height, weight, bmi, classification):
+        return f"""Information about you:
+You are {age} years old.
+Your height is {height} cm.
+Your weight is {weight} kg.
+Your BMI is {bmi:.2f}.
+Your classification is {classification}
+        """
 
     # return to main window
     def go_main(self):
