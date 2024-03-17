@@ -160,7 +160,7 @@ class Formular(QDialog):
         elif field_name == "weight":
             edit_field = self.edit_weight
         else:
-            return  # Chyba: neznámý field_name
+            return  # Error: unknown field_name
 
         validator = edit_field.validator()
         state = validator.validate(edit_field.text(), 0)[0]
