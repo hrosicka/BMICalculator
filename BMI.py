@@ -1,26 +1,32 @@
-def indexBMI(hmotnost, vyska):
+def indexBMI(weight, height):
     """
-    Výpočet Body Mass Indexu
+    Calculates Body Mass Index (BMI).
 
-    hmotnost - hmotnost v kg
+    Args:
+        weight (float): Weight in kilograms.
+        height (float): Height in meters.
 
-    vyska - vyska postavy v metrech
+    Raises:
+        ValueError: If weight or height is negative.
+
+    Returns:
+        float: Calculated BMI value.
     """
-    
-    if hmotnost > 0 and vyska > 0:
-        bmi = hmotnost / pow(vyska,2)
-        return bmi
+    if weight <= 0 or height <= 0:
+        raise ValueError("Weight and height must be positive numbers.")
+    return weight / pow(height,2)
 
-    else:
-        raise ValueError("Hmotnost musí být kladné číslo.")
 
 def return_results(bmi):
-    """
-    Klasifikace tělesné hmotnosti
+    """"
+    Classifies BMI based on WHO guidelines.
 
-    bmi - body mass index
-    """
+    Args:
+        bmi (float): Calculated BMI value.
 
+    Returns:
+        str: BMI classification.
+    """
     # dictionary is used for classification of BMI
     classification = {
     "Underweight.": (bmi < 18.5),
@@ -36,10 +42,18 @@ def return_results(bmi):
             return k
     
 def main():
+    """
+    Calculates and classifies BMI for a given weight and height.
+    """
+    weight = float(input("Enter your weight in kg: "))
+    height = float(input("Enter your height in meters: "))
 
-    bmi = round(indexBMI(52,1.57),2)
-    print("BMI is", bmi)
-    print(return_results(bmi))
+    # Calculate BMI
+    bmi = indexBMI(weight, height)
+
+    # Print BMI and classification
+    print(f"Your BMI is {bmi}")
+    print(f"BMI Classification: {return_results(bmi)}")
 
 if __name__ == "__main__":
     main()
