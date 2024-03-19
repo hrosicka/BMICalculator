@@ -85,11 +85,14 @@ class Formular(QDialog):
         self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
         self.button_calculate.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
 
-        # read data from static variables                                     
+        # fill data from object user                              
         self.fill_data()
 
+        if self.edit_result.text() != "":
+            self.button_more.setEnabled(True)
 
-    # fill data form static variables
+
+    # fill data from object user
     def fill_data(self):
         self.edit_age.setText(str(self.user.age))
         self.edit_height.setText(str(self.user.height_cm))
@@ -108,7 +111,7 @@ class Formular(QDialog):
             widget.addWidget(info_BMI)
             widget.setCurrentIndex(widget.currentIndex()+1)
 
-    # clear all inputs in edit boxes and setup stati variables = ""
+    # clear all inputs in edit boxes and setup user variables = ""
     def clear_inputs(self):
         self.edit_age.clear()
         self.edit_height.clear()
@@ -123,20 +126,46 @@ class Formular(QDialog):
     # clear results
     def clear_results(self):
         self.edit_result.clear()
+        self.button_more.setEnabled(False)
 
     # calculate bmi
     def calculate_bmi(self):
 
         if self.edit_age.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Age is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
+                                        "<FONT COLOR='#ffffff'> Age is missing!", 
+                                        buttons = QMessageBox.Ok, parent=self)
+            messagebox.exec_()
+
+        elif not self.validate_age(self.edit_age.text()):
+            # Display error message for invalid age
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
+                                        "<FONT COLOR='#ffffff'>Age must be between 10 and 120!", 
+                                        buttons=QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
         elif self.edit_height.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Height is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
+                                        "<FONT COLOR='#ffffff'> Height is missing!", 
+                                        buttons = QMessageBox.Ok, parent=self)
+            messagebox.exec_()
+
+        elif not self.validate_height(self.edit_height.text()):
+            # Zobrazte chybovou zprávu
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
+                                     "<FONT COLOR='#ffffff'> Height must be between 100-250 cm!", 
+                                     buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
         elif self.edit_weight.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Weight is missing!", buttons = QMessageBox.Ok, parent=self)
+            messagebox = QMessageBox(QMessageBox.Warning, 
+                                        "Error", "<FONT COLOR='#ffffff'> Weight is missing!", 
+                                        buttons = QMessageBox.Ok, parent=self)
+            messagebox.exec_()
+
+        elif not self.validate_weight(self.edit_weight.text()):
+            # Zobrazte chybovou zprávu
+            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Weight must be within the range of 40-300 kg!", buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
         else:
@@ -150,6 +179,7 @@ class Formular(QDialog):
             self.user.bmi = round(BMI.indexBMI(self.user.weight_kg, self.user.height_cm/100),3)
             self.edit_result.setText(str(self.user.bmi))
             self.user.classification = BMI.return_results(float(self.user.bmi))
+            self.button_more.setEnabled(True)
     
     def check_state(self, field_name):
 
@@ -173,6 +203,72 @@ class Formular(QDialog):
         else:
             color = '#f6989d' # red
         edit_field.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
+
+
+    def validate_weight(self, weight):
+        """
+        Validates the entered weight.
+
+        Args:
+            weight: The input weight value (string).
+
+        Returns:
+            True if the entered weight is in the range 40-300 kg, False otherwise.
+        """
+
+        # Attempts to convert the entered weight to a float.
+        try:
+            weight_float = float(weight)
+        except ValueError:
+            # If the conversion fails, returns False (invalid value).
+            return False
+
+        # Checks if the entered weight is in the range 40-300 kg.
+        return 40 <= weight_float <= 300
+
+
+    def validate_age(self, age):
+        """
+        Validates the entered age.
+
+        Args:
+            age: The input age value (string).
+
+        Returns:
+            True if the entered age is in the range 10-120, False otherwise.
+        """
+
+        # Attempts to convert the entered age to an integer.
+        try:
+            age_int = float(age)
+        except ValueError:
+            # If the conversion fails, returns False (invalid value).
+            return False
+
+        # Checks if the entered age is in the range 10-120.
+        return 10 <= age_int <= 120
+    
+
+    def validate_height(self, height):
+        """
+        Validates the entered height.
+
+        Args:
+            height: The input height value (string).
+
+        Returns:
+            True if the entered height is in the range 100-250 cm, False otherwise.
+        """
+
+        # Attempts to convert the entered height to a float.
+        try:
+            height_float = float(height)
+        except ValueError:
+            # If the conversion fails, returns False (invalid value).
+            return False
+
+        # Checks if the entered height is in the range 100-250 cm.
+        return 100 <= height_float <= 250
 
 
 # second dialog for informatin display
