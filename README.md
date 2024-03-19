@@ -1,5 +1,5 @@
 # PyQtBMICalculator
-This application is a Body Mass Index (BMI) calculator that allows you to calculate your BMI and view additional information about your BMI classification.
+This user-friendly application is a Body Mass Index (BMI) calculator that allows you to calculate your BMI and view additional information about your BMI classification. Simply enter your age, height, and weight, and get your BMI with clear classification. Stay informed about your weight status with our user-friendly BMI calculator!
 
 ## Main window
 The main window consists of several sections:
