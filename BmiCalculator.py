@@ -1,9 +1,9 @@
+# Import libraries
 import sys
-
 from pathlib import Path
-
 from PyQt5 import QtWidgets
 
+# Import specific classes from PyQt5 for GUI creation and functionalities
 from PyQt5.QtWidgets import (
     QApplication,
     QDialog,
@@ -18,10 +18,10 @@ from PyQt5.QtGui import (
 
 from PyQt5 import QtCore
 
-# for importing GUI - created by QtDesigner
+# Import for loading UI elements created with Qt Designer
 from PyQt5.uic import loadUi
 
-# methods for calculation BMI
+# Import modules for BMI calculation and user data storage
 import BMI
 import user as usr
 
@@ -33,54 +33,50 @@ class Formular(QDialog):
         
         super().__init__()
 
+        # Create a user object to store information (if user argument is not provided)
         if user is None:
-            # Create a user object to store information
             self.user = usr.User() 
-
         else:
             self.user = user
 
-        # loading UI - created by QtDesigner
+        # Load UI elements from a ".ui" file created with Qt Designer
         loadUi("dialog.ui", self)
 
-        # input validation - regular expression
+        # Set up regular expression validators for positive numbers with specific format
         validator_possitive = QRegExpValidator(QtCore.QRegExp(r'([1-9][0-9]{1,2})|([1-9][0-9]{1,2}[.])|([1-9][0-9]{1,2}[.][0-9]{1,3})'))
 
         self.edit_age.setValidator(validator_possitive)
         self.edit_height.setValidator(validator_possitive)
         self.edit_weight.setValidator(validator_possitive)
 
-        # buttons
+         # Connect buttons to functions
         self.button_clear.clicked.connect(lambda: self.clear_inputs())
         self.button_close.clicked.connect(app.closeAllWindows)
         self.button_calculate.clicked.connect(lambda: self.calculate_bmi())
         self.button_more.clicked.connect(lambda: self.more_info())
 
-        # age input
+        # Button for age input
         self.edit_age.textChanged.connect(lambda: self.check_state("age"))
         self.edit_age.textChanged.connect(self.clear_results)
         self.edit_age.textChanged.emit(self.edit_age.text())
 
-        # height input in cm
+        # Button for height input in cm
         self.edit_height.textChanged.connect(lambda: self.check_state("height"))
         self.edit_height.textChanged.connect(self.clear_results)
         self.edit_height.textChanged.emit(self.edit_height.text())
 
-        # weight input in cm
+        # Button for weight input in cm
         self.edit_weight.textChanged.connect(lambda: self.check_state("weight"))
         self.edit_weight.textChanged.connect(self.clear_results)
         self.edit_weight.textChanged.emit(self.edit_weight.text())
 
-        # gender radio button
+        # Gender radio button
         self.radio_male.toggled.connect(self.clear_results)
         self.radio_female.toggled.connect(self.clear_results)
 
-        # stylesheet for results
+        # Set stylesheets for the results edit line and buttons
         self.edit_result.setStyleSheet('QLineEdit { color: rgb(209, 209, 209); font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        
-        # stylesteet for buttons
         self.button_more.setStyleSheet('QPushButton { color: rgb(69, 206, 86); border-color: rgb(58, 58, 58)} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-
         self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
         self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
         self.button_calculate.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
@@ -92,18 +88,18 @@ class Formular(QDialog):
             self.button_more.setEnabled(True)
 
 
-    # fill data from object user
+    # Fill data from user object
     def fill_data(self):
         self.edit_age.setText(str(self.user.age))
         self.edit_height.setText(str(self.user.height_cm))
         self.edit_weight.setText(str(self.user.weight_kg))
-        self.edit_result.setText(str(self.user.bmi))
         if (self.user.gender == "Male"):
             self.radio_male.setChecked(True)
-        if (self.user.gender == "Female"):
+        elif (self.user.gender == "Female"):
             self.radio_female.setChecked(True)
+        self.edit_result.setText(str(self.user.bmi))
 
-    # more info works only if the results exists
+    # Show more info (works only if results exist)
     def more_info(self):
         # works only if the result exists
         if (self.user.bmi != ""):
@@ -111,7 +107,7 @@ class Formular(QDialog):
             widget.addWidget(info_BMI)
             widget.setCurrentIndex(widget.currentIndex()+1)
 
-    # clear all inputs in edit boxes and setup user variables = ""
+    # Clear all inputs in edit boxes and setup user variables to ""
     def clear_inputs(self):
         self.edit_age.clear()
         self.edit_height.clear()
@@ -123,20 +119,22 @@ class Formular(QDialog):
         self.user.bmi = ""
         self.user.classification = ""
 
-    # clear results
+    # Clear results
     def clear_results(self):
         self.edit_result.clear()
         self.button_more.setEnabled(False)
 
-    # calculate bmi
+    # Calculate BMI
     def calculate_bmi(self):
 
+        # Display error message if age is empty
         if self.edit_age.text() in [""]:
             messagebox = QMessageBox(QMessageBox.Warning, "Error", 
                                         "<FONT COLOR='#ffffff'> Age is missing!", 
                                         buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
+        # Display error message if age is out of range
         elif not self.validate_age(self.edit_age.text()):
             # Display error message for invalid age
             messagebox = QMessageBox(QMessageBox.Warning, "Error", 
@@ -144,12 +142,14 @@ class Formular(QDialog):
                                         buttons=QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
+        # Display error message if height is empty
         elif self.edit_height.text() in [""]:
             messagebox = QMessageBox(QMessageBox.Warning, "Error", 
                                         "<FONT COLOR='#ffffff'> Height is missing!", 
                                         buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
+        # Display error message if height is out of range
         elif not self.validate_height(self.edit_height.text()):
             # Zobrazte chybovou zprávu
             messagebox = QMessageBox(QMessageBox.Warning, "Error", 
@@ -157,24 +157,27 @@ class Formular(QDialog):
                                      buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
+        # Display error message if weight is empty
         elif self.edit_weight.text() in [""]:
             messagebox = QMessageBox(QMessageBox.Warning, 
                                         "Error", "<FONT COLOR='#ffffff'> Weight is missing!", 
                                         buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
+        # Display error message if weight is out of range
         elif not self.validate_weight(self.edit_weight.text()):
             # Zobrazte chybovou zprávu
             messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Weight must be within the range of 40-300 kg!", buttons = QMessageBox.Ok, parent=self)
             messagebox.exec_()
 
+        # Calculate BMI and show results
         else:
             self.user.age = float(self.edit_age.text())
             self.user.height_cm = float(self.edit_height.text())
             self.user.weight_kg = float(self.edit_weight.text())
             if self.radio_male.isChecked() == True:
                 self.user.gender = "Male"
-            if self.radio_female.isChecked() == True:
+            elif self.radio_female.isChecked() == True:
                 self.user.gender = "Female"
             self.user.bmi = round(BMI.indexBMI(self.user.weight_kg, self.user.height_cm/100),3)
             self.edit_result.setText(str(self.user.bmi))
@@ -182,6 +185,14 @@ class Formular(QDialog):
             self.button_more.setEnabled(True)
     
     def check_state(self, field_name):
+        """
+        Checks the state of a specific field (age, height, or weight) based on the input value.
+
+        This function is used to update the background color of the line edit based on the validity of the input.
+
+        Args:
+            field_name: The name of the field to check (string, "age", "height", or "weight").
+        """
 
         if field_name == "age":
             edit_field = self.edit_age
@@ -271,37 +282,58 @@ class Formular(QDialog):
         return 100 <= height_float <= 250
 
 
-# second dialog for informatin display
+# Second dialog for informatin display
 class InfoFormular(QDialog):
 
     def __init__(self, user):
-        
+        """
+        Constructor for the InfoFormular class.
+
+        Args:
+            user: An instance of the User class containing user data.
+        """
+
         super().__init__()
         self.user = user
 
-        # loading design - created in QtCreator
+        # Load UI elements from a ".ui" file created with Qt Designer
         loadUi("info_dialog.ui", self)
 
-        # buttons - connection
+        # Connect buttons to functions
         self.button_back.clicked.connect(lambda: self.go_main())
         self.button_clear.clicked.connect(lambda: self.clear_data())
         self.button_close.clicked.connect(app.closeAllWindows)
 
-        # formated string for displaying results in second window - detailed results
+        # Format a string to display detailed user information in the second window
         self.information = self.format_user_info(self.user.age, 
                                     self.user.height_cm, 
                                     self.user.weight_kg, 
                                     self.user.bmi, 
                                     self.user.classification)
+        
+        # Call the show_info function to display the information
         self.show_info()
 
-        # button stylesheet
+        # Set stylesheets for the buttons
         self.button_back.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
         self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
         self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
 
-    # formated string for displaying results in second window - detailed results
+
     def format_user_info(self, age, height, weight, bmi, classification):
+        """
+        Formats a string to display user information in a readable way.
+
+        Args:
+            age: User's age (float).
+            height: User's height in centimeters (float).
+            weight: User's weight in kilograms (float).
+            bmi: User's Body Mass Index (float).
+            classification: User's BMI classification (string).
+
+        Returns:
+            A formatted string containing user information.
+        """
         if isinstance(age, str):
             age = float(age)
         height = float(height)
@@ -317,14 +349,29 @@ Your classification is {classification}
 
     # return to main window
     def go_main(self):
+        """
+        Returns to the main window (Formular class).
+
+        Creates a new instance of Formular, adds it to the stack widget,
+        and changes the current index to display the main window.
+        """
         mainwindow = Formular(self.user)
         widget.addWidget(mainwindow)
         widget.setCurrentIndex(widget.currentIndex()+1)
 
     def show_info(self):
+        """
+        Sets the text of the text_show label to the formatted user information string.
+        """
         self.text_show.setText(self.information)
         
     def clear_data(self):
+        """
+        Clears user data and the text displayed in the second window.
+
+        Sets user attributes (age, height, weight, bmi, classification) to empty strings.
+        Clears the text of the text_show label.
+        """
         self.user.age = ""
         self.user.height_cm = ""
         self.user.weight_kg = ""
