@@ -72,4 +72,4 @@ The weight limit is based on the fact that BMI is not a reliable measure of body
 - The application uses a stylesheet (bmi.qss) to customize the appearance of the windows and buttons.
 - You can clear all your data and reset the application by clicking the Clear button.
 
-  [MIT LICENSCE](https://github.com/hrosicka/BMICalculator/blob/master/doc/LICENSE.txt)
+  [MIT LICENSE](https://github.com/hrosicka/BMICalculator/blob/master/doc/LICENSE.txt)
