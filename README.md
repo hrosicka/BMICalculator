@@ -64,9 +64,12 @@ The weight limit is based on the fact that BMI is not a reliable measure of body
 - Clicking the More Info button opens a new window that displays detailed information about your BMI, including:
   - Your age, height, weight, and BMI.
   - Your BMI classification (e.g., Underweight, Normal Weight, Overweight, Obese).
+    
 
 ![](https://github.com/hrosicka/PyQtBMICalculator/blob/master/doc/DetailedResults.png)
 
 ## Additional Features
 - The application uses a stylesheet (bmi.qss) to customize the appearance of the windows and buttons.
 - You can clear all your data and reset the application by clicking the Clear button.
+
+  [MIT LICENSCE](https://github.com/hrosicka/BMICalculator/blob/master/doc/LICENSE.txt)
