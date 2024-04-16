@@ -3,8 +3,12 @@ QPushButton {
     color: #fff;
     font-weight: 600;
     border-radius: 10px;
-    border: 1px solid #0d6efd;
+    border: 1px solid #45CE56;
     padding: 5px 15px;
     margin-top: 10px;
     outline: 0px;
 }
+
+QLineEdit{ border-radius: 5px; }
+
+QTextEdit{ border-radius: 5px; border: 1px solid #45CE56; }
