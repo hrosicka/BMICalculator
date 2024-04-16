@@ -206,13 +206,13 @@ class Formular(QDialog):
         validator = edit_field.validator()
         state = validator.validate(edit_field.text(), 0)[0]
         if edit_field.text() == "0" or edit_field.text() == "":
-            color = '#f6989d' # red
+            color = '#FFC8CB' # red
         elif state == QValidator.Acceptable:
-            color = '#c4df9b' # green
+            color = '#E5F9C6' # green
         elif state == QValidator.Intermediate:
             color = '#fff79a' # yellow
         else:
-            color = '#f6989d' # red
+            color = '#FFC8CB' # red
         edit_field.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
 
 
