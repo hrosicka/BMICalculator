@@ -127,65 +127,59 @@ class Formular(QDialog):
         self.edit_result.clear()
         self.button_more.setEnabled(False)
 
-    # Calculate BMI
+
     def calculate_bmi(self):
+        """Calculates BMI and displays results or error messages."""
 
-        # Display error message if age is empty
-        if self.edit_age.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
-                                        "<FONT COLOR='#ffffff'> Age is missing!", 
-                                        buttons = QMessageBox.Ok, parent=self)
-            messagebox.exec_()
+        if not self.validate_input():
+            return
 
-        # Display error message if age is out of range
-        elif not self.validator.validate_age(self.edit_age.text()):
-            # Display error message for invalid age
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
-                                        "<FONT COLOR='#ffffff'>Age must be between 10 and 120!", 
-                                        buttons=QMessageBox.Ok, parent=self)
-            messagebox.exec_()
+        # Extract values from UI
+        age = float(self.edit_age.text())
+        height_cm = float(self.edit_height.text())
+        weight_kg = float(self.edit_weight.text())
+        gender = "Male" if self.radio_male.isChecked() else "Female"
 
-        # Display error message if height is empty
-        elif self.edit_height.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
-                                        "<FONT COLOR='#ffffff'> Height is missing!", 
-                                        buttons = QMessageBox.Ok, parent=self)
-            messagebox.exec_()
+        # Calculate BMI
+        bmi = BMI.indexBMI(weight_kg, height_cm / 100)
 
-        # Display error message if height is out of range
-        elif not self.validator.validate_height(self.edit_height.text()):
-            # Zobrazte chybovou zprávu
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", 
-                                     "<FONT COLOR='#ffffff'> Height must be between 100-250 cm!", 
-                                     buttons = QMessageBox.Ok, parent=self)
-            messagebox.exec_()
+        # Update user data and UI
+        self.user.age = age
+        self.user.height_cm = height_cm
+        self.user.weight_kg = weight_kg
+        self.user.gender = gender
+        self.user.bmi = round(bmi, 3)
+        self.user.classification = BMI.return_results(bmi)
+        self.edit_result.setText(str(self.user.bmi))
+        self.button_more.setEnabled(True)
 
-        # Display error message if weight is empty
-        elif self.edit_weight.text() in [""]:
-            messagebox = QMessageBox(QMessageBox.Warning, 
-                                        "Error", "<FONT COLOR='#ffffff'> Weight is missing!", 
-                                        buttons = QMessageBox.Ok, parent=self)
-            messagebox.exec_()
+    def validate_input(self):
+        """Validates user input and displays error messages if necessary."""
 
-        # Display error message if weight is out of range
-        elif not self.validator.validate_weight(self.edit_weight.text()):
-            # Zobrazte chybovou zprávu
-            messagebox = QMessageBox(QMessageBox.Warning, "Error", "<FONT COLOR='#ffffff'> Weight must be within the range of 40-300 kg!", buttons = QMessageBox.Ok, parent=self)
-            messagebox.exec_()
+        if not self.edit_age.text() or not self.edit_height.text() or not self.edit_weight.text():
+            self.show_error_message("<FONT COLOR='#ffffff'>Please fill in all fields!")
+            return False
 
-        # Calculate BMI and show results
-        else:
-            self.user.age = float(self.edit_age.text())
-            self.user.height_cm = float(self.edit_height.text())
-            self.user.weight_kg = float(self.edit_weight.text())
-            if self.radio_male.isChecked() == True:
-                self.user.gender = "Male"
-            elif self.radio_female.isChecked() == True:
-                self.user.gender = "Female"
-            self.user.bmi = round(BMI.indexBMI(self.user.weight_kg, self.user.height_cm/100),3)
-            self.edit_result.setText(str(self.user.bmi))
-            self.user.classification = BMI.return_results(float(self.user.bmi))
-            self.button_more.setEnabled(True)
+        if not self.validator.validate_age(self.edit_age.text()):
+            self.show_error_message("<FONT COLOR='#ffffff'>Age must be between 10 and 120!")
+            return False
+
+        if not self.validator.validate_height(self.edit_height.text()):
+            self.show_error_message("<FONT COLOR='#ffffff'>Height must be between 100 and 250 cm!")
+            return False
+
+        if not self.validator.validate_weight(self.edit_weight.text()):
+            self.show_error_message("<FONT COLOR='#ffffff'>Weight must be between 40 and 300 kg!")
+            return False
+
+        return True
+
+    def show_error_message(self, message):
+        """Displays a generic error message with the given message."""
+
+        messagebox = QMessageBox(QMessageBox.Warning, "Error", message, buttons=QMessageBox.Ok, parent=self)
+        messagebox.exec_()
+        
     
     def check_state(self, field_name):
         """
