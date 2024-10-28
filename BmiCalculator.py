@@ -28,10 +28,19 @@ from validator import Validator
 
 
 class Formular(QDialog):
+    """
+    This class represents the main window of the BMI calculator application.
+    It handles user interaction, input validation, BMI calculation, and result display.
+    """
 
     # init main dialog
     def __init__(self, user=None):
-        
+        """
+        Constructor for the Formular class.
+
+        Args:
+            user (User, optional): An optional User object containing user data. Defaults to None.
+        """
         super().__init__()
 
         # Create a user object to store information (if user argument is not provided)
@@ -93,6 +102,9 @@ class Formular(QDialog):
 
     # Fill data from user object
     def fill_data(self):
+        """
+        Fills the input fields with data from the user object.
+        """
         self.edit_age.setText(str(self.user.age))
         self.edit_height.setText(str(self.user.height_cm))
         self.edit_weight.setText(str(self.user.weight_kg))
@@ -104,6 +116,10 @@ class Formular(QDialog):
 
     # Show more info (works only if results exist)
     def more_info(self):
+        """
+        Shows a second window with detailed information about the user's BMI
+        (only if a BMI result exists).
+        """
         # works only if the result exists
         if (self.user.bmi != ""):
             info_BMI =  InfoFormular(self.user)
@@ -112,6 +128,9 @@ class Formular(QDialog):
 
     # Clear all inputs in edit boxes and setup user variables to ""
     def clear_inputs(self):
+        """
+        Clears all input fields and resets user variables to empty strings.
+        """
         self.edit_age.clear()
         self.edit_height.clear()
         self.edit_weight.clear()
@@ -124,13 +143,18 @@ class Formular(QDialog):
 
     # Clear results
     def clear_results(self):
+        """
+        Clears the BMI result field and disables the "More Info" button.
+        """
         self.edit_result.clear()
         self.button_more.setEnabled(False)
 
 
     def calculate_bmi(self):
-        """Calculates BMI and displays results or error messages."""
-
+        """
+        Calculates BMI based on user input, validates data, and displays results
+        or error messages.
+        """
         if not self.validate_input():
             return
 
@@ -154,8 +178,13 @@ class Formular(QDialog):
         self.button_more.setEnabled(True)
 
     def validate_input(self):
-        """Validates user input and displays error messages if necessary."""
+        """
+        Validates user input for age, height, and weight.
+        Displays error messages for invalid input.
 
+        Returns:
+            bool: True if all input is valid, False otherwise.
+        """
         if not self.edit_age.text() or not self.edit_height.text() or not self.edit_weight.text():
             self.show_error_message("<FONT COLOR='#ffffff'>Please fill in all fields!")
             return False
@@ -175,22 +204,21 @@ class Formular(QDialog):
         return True
 
     def show_error_message(self, message):
-        """Displays a generic error message with the given message."""
-
+        """
+        Displays a generic error message with the provided message.
+        """
         messagebox = QMessageBox(QMessageBox.Warning, "Error", message, buttons=QMessageBox.Ok, parent=self)
         messagebox.exec_()
-        
+
     
     def check_state(self, field_name):
         """
-        Checks the state of a specific field (age, height, or weight) based on the input value.
-
-        This function is used to update the background color of the line edit based on the validity of the input.
+        Checks the state (validity) of a specific input field (age, height, or weight)
+        based on the user's input. Updates the background color of the field accordingly.
 
         Args:
-            field_name: The name of the field to check (string, "age", "height", or "weight").
+            field_name (str): The name of the field to check ("age", "height", or "weight").
         """
-
         if field_name == "age":
             edit_field = self.edit_age
         elif field_name == "height":
