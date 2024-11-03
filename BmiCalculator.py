@@ -54,6 +54,32 @@ class Formular(QDialog):
         # Load UI elements from a ".ui" file created with Qt Designer
         loadUi("dialog.ui", self)
 
+        self._setup_validators()
+        self._connect_signals_and_slots()
+
+
+        # Set stylesheets for the results edit line and buttons
+        self.edit_result.setStyleSheet('QLineEdit { color: rgb(209, 209, 209); font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+        self.button_more.setStyleSheet('QPushButton { color: rgb(69, 206, 86); border-color: rgb(58, 58, 58)} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+        self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+        self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+        self.button_calculate.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+
+        # fill data from object user                              
+        self.fill_data()
+
+        if self.edit_result.text() != "":
+            self.button_more.setEnabled(True)
+
+
+    def _setup_validators(self):
+        """
+        Sets up regular expression validators for input fields to ensure valid positive numbers.
+
+        This method configures regular expression validators for the `edit_age`, `edit_height`, and `edit_weight`
+        fields. These validators restrict input to positive numbers with a specific format, allowing for integers
+        and decimal numbers with up to three decimal places.
+        """
         # Set up regular expression validators for positive numbers with specific format
         validator_possitive = QRegExpValidator(QtCore.QRegExp(r'([1-9][0-9]{1,2})|([1-9][0-9]{1,2}[.])|([1-9][0-9]{1,2}[.][0-9]{1,3})'))
 
@@ -61,7 +87,17 @@ class Formular(QDialog):
         self.edit_height.setValidator(validator_possitive)
         self.edit_weight.setValidator(validator_possitive)
 
-         # Connect buttons to functions
+
+    def _connect_signals_and_slots(self):
+        """
+        Connects UI elements' signals to appropriate slot functions.
+
+        This method establishes connections between user interactions with UI elements
+        and the corresponding actions to be performed. For instance, clicking the "Clear" button
+        triggers the `clear_inputs` method, while changes to the "Age" input field trigger
+        the `check_state` and `clear_results` methods.
+        """
+        # Connect buttons to functions
         self.button_clear.clicked.connect(lambda: self.clear_inputs())
         self.button_close.clicked.connect(app.closeAllWindows)
         self.button_calculate.clicked.connect(lambda: self.calculate_bmi())
@@ -86,20 +122,7 @@ class Formular(QDialog):
         self.radio_male.toggled.connect(self.clear_results)
         self.radio_female.toggled.connect(self.clear_results)
 
-        # Set stylesheets for the results edit line and buttons
-        self.edit_result.setStyleSheet('QLineEdit { color: rgb(209, 209, 209); font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_more.setStyleSheet('QPushButton { color: rgb(69, 206, 86); border-color: rgb(58, 58, 58)} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_calculate.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-
-        # fill data from object user                              
-        self.fill_data()
-
-        if self.edit_result.text() != "":
-            self.button_more.setEnabled(True)
-
-
+    
     # Fill data from user object
     def fill_data(self):
         """
