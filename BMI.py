@@ -7,14 +7,22 @@ def indexBMI(weight, height):
         height (float): Height in meters.
 
     Raises:
-        ValueError: If weight or height is negative.
+        TypeError: If weight or height is not a number.
+        ValueError: If weight or height is non-positive.
 
     Returns:
         float: Calculated BMI value.
     """
+    try:
+        weight = float(weight)
+        height = float(height)
+    except ValueError as e:
+        raise TypeError("Weight and height must be numeric values.") from e
+
     if weight <= 0 or height <= 0:
         raise ValueError("Weight and height must be positive numbers.")
-    return weight / pow(height,2)
+
+    return weight / height**2
 
 
 def return_results(bmi):
