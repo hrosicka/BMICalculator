@@ -71,3 +71,10 @@ The weight limit is based on the fact that BMI is not a reliable measure of body
 ## Additional Features
 - The application uses a stylesheet (bmi.qss) to customize the appearance of the windows and buttons.
 - You can clear all your data and reset the application by clicking the Clear button.
+
+  
+## Author
+Lovingly crafted by [Hanka Robovska](https://github.com/hrosicka) 👩‍🔬
+
+## License
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for details. Free to use, modify, and distribute as needed.
