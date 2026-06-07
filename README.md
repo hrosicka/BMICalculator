@@ -1,4 +1,10 @@
 # BMICalculator
+
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org)
+[![PyQt](https://img.shields.io/badge/PyQt-41CD52?style=for-the-badge&logo=qt&logoColor=white)](https://riverbankcomputing.com/software/pyqt/)
+[![Style](https://img.shields.io/badge/UI%20Style-QSS%20Dark-2b2b2b?style=for-the-badge)](https://doc.qt.io/qt-6/stylesheet.html)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
+
 This user-friendly application is a Body Mass Index (BMI) calculator that allows you to calculate your BMI and view additional information about your BMI classification. Simply enter your age, height, and weight, and get your BMI with clear classification. Stay informed about your weight status with our user-friendly BMI calculator!
 
 ## Main window
