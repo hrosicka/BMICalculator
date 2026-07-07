@@ -45,7 +45,7 @@ class Formular(QDialog):
 
         # Create a user object to store information (if user argument is not provided)
         if user is None:
-            self.user = usr.User() 
+            self.user = usr.User()
         else:
             self.user = user
 
@@ -57,20 +57,28 @@ class Formular(QDialog):
         self._setup_validators()
         self._connect_signals_and_slots()
 
-
         # Set stylesheets for the results edit line and buttons
-        self.edit_result.setStyleSheet('QLineEdit { color: rgb(209, 209, 209); font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_more.setStyleSheet('QPushButton { color: rgb(69, 206, 86); border-color: rgb(58, 58, 58)} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_calculate.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
+        self.edit_result.setStyleSheet(
+            "QLineEdit { color: rgb(209, 209, 209); font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}"
+        )
+        self.button_more.setStyleSheet(
+            "QPushButton { color: rgb(69, 206, 86); border-color: rgb(58, 58, 58)} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}"
+        )
+        self.button_clear.setStyleSheet(
+            'QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}'
+        )
+        self.button_close.setStyleSheet(
+            'QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}'
+        )
+        self.button_calculate.setStyleSheet(
+            'QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}'
+        )
 
-        # fill data from object user                              
+        # fill data from object user
         self.fill_data()
 
         if self.edit_result.text() != "":
             self.button_more.setEnabled(True)
-
 
     def _setup_validators(self):
         """
@@ -81,12 +89,15 @@ class Formular(QDialog):
         and decimal numbers with up to three decimal places.
         """
         # Set up regular expression validators for positive numbers with specific format
-        validator_possitive = QRegExpValidator(QtCore.QRegExp(r'([1-9][0-9]{1,2})|([1-9][0-9]{1,2}[.])|([1-9][0-9]{1,2}[.][0-9]{1,3})'))
+        validator_possitive = QRegExpValidator(
+            QtCore.QRegExp(
+                r"([1-9][0-9]{1,2})|([1-9][0-9]{1,2}[.])|([1-9][0-9]{1,2}[.][0-9]{1,3})"
+            )
+        )
 
         self.edit_age.setValidator(validator_possitive)
         self.edit_height.setValidator(validator_possitive)
         self.edit_weight.setValidator(validator_possitive)
-
 
     def _connect_signals_and_slots(self):
         """
@@ -122,7 +133,6 @@ class Formular(QDialog):
         self.radio_male.toggled.connect(self.clear_results)
         self.radio_female.toggled.connect(self.clear_results)
 
-    
     # Fill data from user object
     def fill_data(self):
         """
@@ -131,9 +141,9 @@ class Formular(QDialog):
         self.edit_age.setText(str(self.user.age))
         self.edit_height.setText(str(self.user.height_cm))
         self.edit_weight.setText(str(self.user.weight_kg))
-        if (self.user.gender == "Male"):
+        if self.user.gender == "Male":
             self.radio_male.setChecked(True)
-        elif (self.user.gender == "Female"):
+        elif self.user.gender == "Female":
             self.radio_female.setChecked(True)
         self.edit_result.setText(str(self.user.bmi))
 
@@ -144,10 +154,10 @@ class Formular(QDialog):
         (only if a BMI result exists).
         """
         # works only if the result exists
-        if (self.user.bmi != ""):
-            info_BMI =  InfoFormular(self.user)
+        if self.user.bmi != "":
+            info_BMI = InfoFormular(self.user)
             widget.addWidget(info_BMI)
-            widget.setCurrentIndex(widget.currentIndex()+1)
+            widget.setCurrentIndex(widget.currentIndex() + 1)
 
     # Clear all inputs in edit boxes and setup user variables to ""
     def clear_inputs(self):
@@ -171,7 +181,6 @@ class Formular(QDialog):
         """
         self.edit_result.clear()
         self.button_more.setEnabled(False)
-
 
     def calculate_bmi(self):
         """
@@ -208,20 +217,30 @@ class Formular(QDialog):
         Returns:
             bool: True if all input is valid, False otherwise.
         """
-        if not self.edit_age.text() or not self.edit_height.text() or not self.edit_weight.text():
+        if (
+            not self.edit_age.text()
+            or not self.edit_height.text()
+            or not self.edit_weight.text()
+        ):
             self.show_error_message("<FONT COLOR='#ffffff'>Please fill in all fields!")
             return False
 
         if not self.validator.validate_age(self.edit_age.text()):
-            self.show_error_message("<FONT COLOR='#ffffff'>Age must be between 10 and 120!")
+            self.show_error_message(
+                "<FONT COLOR='#ffffff'>Age must be between 10 and 120!"
+            )
             return False
 
         if not self.validator.validate_height(self.edit_height.text()):
-            self.show_error_message("<FONT COLOR='#ffffff'>Height must be between 100 and 250 cm!")
+            self.show_error_message(
+                "<FONT COLOR='#ffffff'>Height must be between 100 and 250 cm!"
+            )
             return False
 
         if not self.validator.validate_weight(self.edit_weight.text()):
-            self.show_error_message("<FONT COLOR='#ffffff'>Weight must be between 40 and 300 kg!")
+            self.show_error_message(
+                "<FONT COLOR='#ffffff'>Weight must be between 40 and 300 kg!"
+            )
             return False
 
         return True
@@ -230,10 +249,11 @@ class Formular(QDialog):
         """
         Displays a generic error message with the provided message.
         """
-        messagebox = QMessageBox(QMessageBox.Warning, "Error", message, buttons=QMessageBox.Ok, parent=self)
+        messagebox = QMessageBox(
+            QMessageBox.Warning, "Error", message, buttons=QMessageBox.Ok, parent=self
+        )
         messagebox.exec_()
 
-    
     def check_state(self, field_name):
         """
         Checks the state (validity) of a specific input field (age, height, or weight)
@@ -254,19 +274,21 @@ class Formular(QDialog):
         validator = edit_field.validator()
         state = validator.validate(edit_field.text(), 0)[0]
         if edit_field.text() == "0" or edit_field.text() == "":
-            color = '#FFC8CB' # red
+            color = "#FFC8CB"  # red
         elif state == QValidator.Acceptable:
-            color = '#E5F9C6' # green
+            color = "#E5F9C6"  # green
         elif state == QValidator.Intermediate:
-            color = '#fff79a' # yellow
+            color = "#fff79a"  # yellow
         else:
-            color = '#FFC8CB' # red
-        edit_field.setStyleSheet('QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}' % color)
+            color = "#FFC8CB"  # red
+        edit_field.setStyleSheet(
+            "QLineEdit { background-color: %s; font: 16pt} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}"
+            % color
+        )
 
 
 # Second dialog for informatin display
 class InfoFormular(QDialog):
-
     def __init__(self, user):
         """
         Constructor for the InfoFormular class.
@@ -287,20 +309,27 @@ class InfoFormular(QDialog):
         self.button_close.clicked.connect(app.closeAllWindows)
 
         # Format a string to display detailed user information in the second window
-        self.information = self.format_user_info(self.user.age, 
-                                    self.user.height_cm, 
-                                    self.user.weight_kg, 
-                                    self.user.bmi, 
-                                    self.user.classification)
-        
+        self.information = self.format_user_info(
+            self.user.age,
+            self.user.height_cm,
+            self.user.weight_kg,
+            self.user.bmi,
+            self.user.classification,
+        )
+
         # Call the show_info function to display the information
         self.show_info()
 
         # Set stylesheets for the buttons
-        self.button_back.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_close.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-        self.button_clear.setStyleSheet('QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}')
-
+        self.button_back.setStyleSheet(
+            'QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}'
+        )
+        self.button_close.setStyleSheet(
+            'QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}'
+        )
+        self.button_clear.setStyleSheet(
+            'QPushButton { font: 12pt "MS Shell Dlg 2"; background-color: rgb(69, 206, 86); color: rgb(58, 58, 58); border-radius: 10px;} QToolTip { background-color: #8ad4ff; color: black; border: #8ad4ff solid 1px}'
+        )
 
     def format_user_info(self, age, height, weight, bmi, classification):
         """
@@ -339,14 +368,14 @@ Your classification is {classification}
         """
         mainwindow = Formular(self.user)
         widget.addWidget(mainwindow)
-        widget.setCurrentIndex(widget.currentIndex()+1)
+        widget.setCurrentIndex(widget.currentIndex() + 1)
 
     def show_info(self):
         """
         Sets the text of the text_show label to the formatted user information string.
         """
         self.text_show.setText(self.information)
-        
+
     def clear_data(self):
         """
         Clears user data and the text displayed in the second window.
@@ -361,12 +390,13 @@ Your classification is {classification}
         self.user.classification = ""
         self.text_show.clear()
 
+
 app = QApplication(sys.argv)
 mainwindow = Formular()
 widget = QtWidgets.QStackedWidget()
-widget.setWindowTitle('BMI Calculator')
-widget.setWindowIcon(QIcon('Pig.png'))
+widget.setWindowTitle("BMI Calculator")
+widget.setWindowIcon(QIcon("Pig.png"))
 widget.addWidget(mainwindow)
 widget.show()
-app.setStyleSheet(Path('bmi.qss').read_text())
+app.setStyleSheet(Path("bmi.qss").read_text())
 app.exec()

@@ -2,11 +2,11 @@ import unittest
 import sys
 
 # Setting the path to the module to be tested
-sys.path.append('../BmiCalculator')
+sys.path.append("../BmiCalculator")
 from BMI import return_results
 
-class TestBMIClassification(unittest.TestCase):
 
+class TestBMIClassification(unittest.TestCase):
     def test_underweight(self):
         """Tests classification for underweight BMI."""
         bmi = 17.0
@@ -43,6 +43,6 @@ class TestBMIClassification(unittest.TestCase):
         classification = return_results(bmi)
         self.assertEqual(classification, "Obese Class III.")
 
-if __name__ == '__main__':
-    unittest.main()
 
+if __name__ == "__main__":
+    unittest.main()

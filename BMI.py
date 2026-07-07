@@ -26,7 +26,7 @@ def indexBMI(weight, height):
 
 
 def return_results(bmi):
-    """"
+    """ "
     Classifies BMI based on WHO guidelines.
 
     Args:
@@ -37,18 +37,19 @@ def return_results(bmi):
     """
     # dictionary is used for classification of BMI
     classification = {
-    "Underweight.": (bmi < 18.5),
-    "Normal.": (18.5 <= bmi < 25),
-    "Overweight.": (25 <= bmi < 30),
-    "Obese Class I.": (30 <= bmi < 35),
-    "Obese Class II.": (35 <= bmi < 40),
-    "Obese Class III.": (bmi >= 40),
+        "Underweight.": (bmi < 18.5),
+        "Normal.": (18.5 <= bmi < 25),
+        "Overweight.": (25 <= bmi < 30),
+        "Obese Class I.": (30 <= bmi < 35),
+        "Obese Class II.": (35 <= bmi < 40),
+        "Obese Class III.": (bmi >= 40),
     }
 
     for k, v in classification.items():
         if v:
             return k
-    
+
+
 def main():
     """
     Calculates and classifies BMI for a given weight and height.
@@ -62,6 +63,7 @@ def main():
     # Print BMI and classification
     print(f"Your BMI is {bmi}")
     print(f"BMI Classification: {return_results(bmi)}")
+
 
 if __name__ == "__main__":
     main()

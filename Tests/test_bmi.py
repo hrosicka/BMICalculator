@@ -2,11 +2,11 @@ import unittest
 import sys
 
 # Setting the path to the module to be tested
-sys.path.append('../BmiCalculator')
+sys.path.append("../BmiCalculator")
 from BMI import indexBMI
 
-class TestBMI(unittest.TestCase):
 
+class TestBMI(unittest.TestCase):
     def test_positive_bmi(self):
         """Tests BMI calculation with positive inputs."""
         weight = 70.0
@@ -57,6 +57,6 @@ class TestBMI(unittest.TestCase):
         with self.assertRaises(TypeError):
             indexBMI(weight, height)
 
-if __name__ == '__main__':
-    unittest.main()
 
+if __name__ == "__main__":
+    unittest.main()

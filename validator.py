@@ -1,5 +1,4 @@
 class Validator:
-    
     def validate_weight(self, weight):
         """
         Validates the entered weight.
@@ -21,7 +20,6 @@ class Validator:
         # Checks if the entered weight is in the range 40-300 kg.
         return 40 <= weight_float <= 300
 
-
     def validate_age(self, age):
         """
         Validates the entered age.
@@ -42,7 +40,6 @@ class Validator:
 
         # Checks if the entered age is in the range 10-120.
         return 10 <= age_int <= 120
-    
 
     def validate_height(self, height):
         """
