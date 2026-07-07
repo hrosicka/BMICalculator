@@ -2,11 +2,11 @@ import unittest
 import sys
 
 # Setting the path to the module to be tested
-sys.path.append('../BmiCalculator')
+sys.path.append("../BmiCalculator")
 from validator import Validator
 
-class ValidatorTest(unittest.TestCase):
 
+class ValidatorTest(unittest.TestCase):
     def setUp(self):
         """
         Sets up the test fixture by creating a Validator instance.
@@ -82,6 +82,6 @@ class ValidatorTest(unittest.TestCase):
         self.assertFalse(self.validator.validate_height("abc"))
         self.assertFalse(self.validator.validate_height(""))
 
-if __name__ == '__main__':
-    unittest.main()
 
+if __name__ == "__main__":
+    unittest.main()
